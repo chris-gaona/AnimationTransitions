@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Album Cover</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_album_detail">AlbumDetail</string>
+    <string name="desc_album_art">Album art</string>
+    <string name="desc_album_title">Mean Something</string>
+    <string name="desc_album_artist">Kinder Than Wolves</string>
+    <string name="desc_fab">Action button</string>
+    <string name="desc_sound_icon">Sound icon</string>
+    <string name="track_title">Make You Feel</string>
+    <string name="track_time">4:26</string>
+    <string name="desc_album_thumbnail">Album art thumbnail</string>
+    <string name="lyrics">
+Twinkle, twinkle, little star,\n
+How I wonder what you are!\n
+Up above the world so high,\n
+Like a diamond in the sky.\n
+\n
+When the blazing sun is gone,\n
+When he nothing shines upon,\n
+Then you show your little light,\n
+Twinkle, twinkle, all the night.\n
+\n
+Then the traveller in the dark\n
+Thanks you for your tiny sparks;\n
+He could not see which way to go,\n
+If you did not twinkle so.\n
+\n
+In the dark blue sky you keep,\n
+And often through my curtains peep,\n
+For you never shut your eye\n
+\'Till the sun is in the sky.\n
+\n
+As your bright and tiny spark\n
+Lights the traveller in the dark,\n
+Though I know not what you are,\n
+Twinkle, twinkle, little star.
+    </string>
+</resources>
