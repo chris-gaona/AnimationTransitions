@@ -1,5 +1,7 @@
 package com.teamtreehouse.albumcover;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
@@ -10,6 +12,8 @@ import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -37,26 +41,38 @@ public class AlbumDetailActivity extends Activity {
     }
 
     private void animate() {
-        ObjectAnimator scalex = ObjectAnimator.ofFloat(fab, "scaleX", 0, 1);
-        ObjectAnimator scaley = ObjectAnimator.ofFloat(fab, "scaleY", 0, 1);
-        AnimatorSet scaleFab = new AnimatorSet();
-        // play animations together
-        scaleFab.playTogether(scalex, scaley);
+//        ObjectAnimator scalex = ObjectAnimator.ofFloat(fab, "scaleX", 0, 1);
+//        ObjectAnimator scaley = ObjectAnimator.ofFloat(fab, "scaleY", 0, 1);
+//        AnimatorSet scaleFab = new AnimatorSet();
+//        // play animations together
+//        scaleFab.playTogether(scalex, scaley);
+
+        // moved scaling fab animation to xml instead in scale.xml
+        Animator scaleFab = AnimatorInflater.loadAnimator(this, R.animator.scale);
+        scaleFab.setTarget(fab);
 
         int titleStartValue = titlePanel.getTop();
         int titleEndValue = titlePanel.getBottom();
         // use ObjectAnimator to utilize/access all animate properties
         ObjectAnimator animatorTitle = ObjectAnimator.ofInt(titlePanel, "bottom", titleStartValue, titleEndValue);
+        // set type of transition for property
+        animatorTitle.setInterpolator(new AccelerateInterpolator());
 
         int trackStartValue = trackPanel.getTop();
         int trackEndValue = trackPanel.getBottom();
         // use ObjectAnimator to utilize/access all animate properties
         ObjectAnimator animatorTrack = ObjectAnimator.ofInt(trackPanel, "bottom", trackStartValue, trackEndValue);
+        // set type of transition for property
+        animatorTrack.setInterpolator(new DecelerateInterpolator());
 
         titlePanel.setBottom(titleStartValue);
         trackPanel.setBottom(titleStartValue);
         fab.setScaleX(0);
         fab.setScaleY(0);
+
+//        animatorTitle.setDuration(1000);
+//        animatorTrack.setDuration(1000);
+//        animatorTitle.setStartDelay(1000);
 
         // use AnimatorSet to create animations with specific time parameters
         AnimatorSet set = new AnimatorSet();
