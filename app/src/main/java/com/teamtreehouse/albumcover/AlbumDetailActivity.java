@@ -97,6 +97,14 @@ public class AlbumDetailActivity extends Activity {
         ViewGroup transitionRoot = detailContainer;
         Scene expandedScene = Scene.getSceneForLayout(transitionRoot, R.layout.activity_album_detail_expanded, view.getContext());
 
+        expandedScene.setEnterAction(new Runnable() {
+            @Override
+            public void run() {
+                ButterKnife.bind(AlbumDetailActivity.this);
+                populate();
+            }
+        });
+
 //        // specifying new transition using new ChangeBounds()
 //        // new way to do this is below
 //        TransitionManager.go(expandedScene, new ChangeBounds());
@@ -122,6 +130,7 @@ public class AlbumDetailActivity extends Activity {
         int albumArtResId = getIntent().getIntExtra(EXTRA_ALBUM_ART_RESID, R.drawable.mean_something_kinder_than_wolves);
         albumArtView.setImageResource(albumArtResId);
 
+        // get reduced size of the artwork
         Bitmap albumBitmap = getReducedBitmap(albumArtResId);
         colorizeFromImage(albumBitmap);
     }
