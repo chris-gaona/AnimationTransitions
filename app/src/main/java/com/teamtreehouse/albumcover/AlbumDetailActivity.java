@@ -37,12 +37,17 @@ public class AlbumDetailActivity extends Activity {
     @Bind(R.id.track_panel) ViewGroup trackPanel;
     @Bind(R.id.detail_container) ViewGroup detailContainer;
 
+    private TransitionManager mTransitionManager;
+    private Scene mExpandedScene;
+    private Scene mCollapsedScene;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_detail);
         ButterKnife.bind(this);
         populate();
+        setupTransitions();
     }
 
     private void animate() {
@@ -93,11 +98,20 @@ public class AlbumDetailActivity extends Activity {
 
     @OnClick(R.id.track_panel)
     public void onTrackPanelClicked(View view) {
+
+//        // execute entire transition set
+//        TransitionManager.go(expandedScene, transitionSet);
+    }
+
+    private void setupTransitions() {
+        mTransitionManager = new TransitionManager();
         // root of view hierarchy
         ViewGroup transitionRoot = detailContainer;
-        Scene expandedScene = Scene.getSceneForLayout(transitionRoot, R.layout.activity_album_detail_expanded, view.getContext());
 
-        expandedScene.setEnterAction(new Runnable() {
+        // Expanded scene
+        mExpandedScene = Scene.getSceneForLayout(transitionRoot, R.layout.activity_album_detail_expanded, this);
+
+        mExpandedScene.setEnterAction(new Runnable() {
             @Override
             public void run() {
                 ButterKnife.bind(AlbumDetailActivity.this);
@@ -109,21 +123,48 @@ public class AlbumDetailActivity extends Activity {
 //        // new way to do this is below
 //        TransitionManager.go(expandedScene, new ChangeBounds());
 
-        TransitionSet transitionSet = new TransitionSet();
+        TransitionSet expandTransitionSet = new TransitionSet();
         // causes each transition to play one after the other
-        transitionSet.setOrdering(TransitionSet.ORDERING_SEQUENTIAL);
+        expandTransitionSet.setOrdering(TransitionSet.ORDERING_SEQUENTIAL);
         ChangeBounds changeBounds = new ChangeBounds();
         changeBounds.setDuration(200);
-        transitionSet.addTransition(changeBounds);
+        expandTransitionSet.addTransition(changeBounds);
         // make lyrics fade in
         Fade fadeLyrics = new Fade();
         fadeLyrics.setDuration(150);
         fadeLyrics.addTarget(R.id.lyrics);
         // add fade to transition set
-        transitionSet.addTransition(fadeLyrics);
+        expandTransitionSet.addTransition(fadeLyrics);
 
-        // execute entire transition set
-        TransitionManager.go(expandedScene, transitionSet);
+        // Collapsed scene
+        mCollapsedScene = Scene.getSceneForLayout(transitionRoot, R.layout.activity_album_detail, this);
+
+        mCollapsedScene.setEnterAction(new Runnable() {
+            @Override
+            public void run() {
+                ButterKnife.bind(AlbumDetailActivity.this);
+                populate();
+            }
+        });
+
+//        // specifying new transition using new ChangeBounds()
+//        // new way to do this is below
+//        TransitionManager.go(expandedScene, new ChangeBounds());
+
+        TransitionSet collapseTransitionSet = new TransitionSet();
+        // causes each transition to play one after the other
+        collapseTransitionSet.setOrdering(TransitionSet.ORDERING_SEQUENTIAL);
+
+        // make lyrics fade in
+        Fade fadeOutLyrics = new Fade();
+        fadeOutLyrics.setDuration(150);
+        fadeOutLyrics.addTarget(R.id.lyrics);
+        // add fade to transition set
+        expandTransitionSet.addTransition(fadeOutLyrics);
+
+        ChangeBounds resetBounds = new ChangeBounds();
+        resetBounds.setDuration(200);
+        collapseTransitionSet.addTransition(resetBounds);
     }
 
     private void populate() {
