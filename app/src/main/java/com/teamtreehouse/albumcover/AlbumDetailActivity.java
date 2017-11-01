@@ -144,8 +144,8 @@ public class AlbumDetailActivity extends Activity {
 
     private void setupTransitions() {
         // this simple line sets the enter transition from the Right
-        getWindow().setEnterTransition(new Slide(Gravity.RIGHT));
-        getWindow().setReturnTransition(new Fade());
+//        getWindow().setEnterTransition(new Slide(Gravity.RIGHT));
+//        getWindow().setReturnTransition(new Fade());
 
         mTransitionManager = new TransitionManager();
         // root of view hierarchy
