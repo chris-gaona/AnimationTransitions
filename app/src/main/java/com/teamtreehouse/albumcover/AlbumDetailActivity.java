@@ -9,9 +9,11 @@ import android.support.v7.graphics.Palette;
 import android.transition.ChangeBounds;
 import android.transition.Fade;
 import android.transition.Scene;
+import android.transition.Slide;
 import android.transition.Transition;
 import android.transition.TransitionManager;
 import android.transition.TransitionSet;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -141,6 +143,10 @@ public class AlbumDetailActivity extends Activity {
     }
 
     private void setupTransitions() {
+        // this simple line sets the enter transition from the Right
+        getWindow().setEnterTransition(new Slide(Gravity.RIGHT));
+        getWindow().setReturnTransition(new Fade());
+
         mTransitionManager = new TransitionManager();
         // root of view hierarchy
         ViewGroup transitionRoot = detailContainer;

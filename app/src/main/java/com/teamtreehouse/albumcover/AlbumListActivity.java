@@ -1,10 +1,12 @@
 package com.teamtreehouse.albumcover;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.transition.Explode;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -21,14 +23,14 @@ public class AlbumListActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_list);
-        initTransitions();
+        setupTransitions();
 
         ButterKnife.bind(this);
         populate();
     }
 
-    private void initTransitions() {
-        getWindow().setExitTransition(null);
+    private void setupTransitions() {
+        getWindow().setExitTransition(new Explode());
         getWindow().setReenterTransition(null);
     }
 
@@ -79,7 +81,8 @@ public class AlbumListActivity extends Activity {
                         Intent intent = new Intent(AlbumListActivity.this, AlbumDetailActivity.class);
                         intent.putExtra(AlbumDetailActivity.EXTRA_ALBUM_ART_RESID, albumArtResId);
 
-                        startActivity(intent);
+                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(AlbumListActivity.this);
+                        startActivity(intent, options.toBundle());
                     }
                 });
             }
