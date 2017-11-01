@@ -144,8 +144,11 @@ public class AlbumDetailActivity extends Activity {
 
     private void setupTransitions() {
         Slide slide = new Slide(Gravity.BOTTOM);
+        // exclude a target
         slide.excludeTarget(android.R.id.statusBarBackground, true);
         getWindow().setEnterTransition(slide);
+        // turns off overlay so that FAB button is always on top
+        getWindow().setSharedElementsUseOverlay(false);
 
         // this simple line sets the enter transition from the Right
 //        getWindow().setEnterTransition(new Slide(Gravity.RIGHT));

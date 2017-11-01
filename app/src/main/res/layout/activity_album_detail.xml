@@ -12,7 +12,7 @@
         <ImageView
             android:id="@+id/album_art"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="400dp"
             android:clickable="true"
             android:contentDescription="@string/desc_album_art"
             android:scaleType="centerCrop"
