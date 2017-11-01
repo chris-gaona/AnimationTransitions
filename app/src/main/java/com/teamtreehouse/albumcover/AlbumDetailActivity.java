@@ -143,6 +143,10 @@ public class AlbumDetailActivity extends Activity {
     }
 
     private void setupTransitions() {
+        Slide slide = new Slide(Gravity.BOTTOM);
+        slide.excludeTarget(android.R.id.statusBarBackground, true);
+        getWindow().setEnterTransition(slide);
+
         // this simple line sets the enter transition from the Right
 //        getWindow().setEnterTransition(new Slide(Gravity.RIGHT));
 //        getWindow().setReturnTransition(new Fade());
