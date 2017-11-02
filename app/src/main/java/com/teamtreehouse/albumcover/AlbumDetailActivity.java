@@ -227,7 +227,7 @@ public class AlbumDetailActivity extends Activity {
 
         // sets postpone on all transitions until called later
         // used to handle potential network latency problems
-        postponeEnterTransition();
+//        postponeEnterTransition();
     }
 
     private void populate() {
@@ -240,7 +240,7 @@ public class AlbumDetailActivity extends Activity {
 
         // starts transitions here on command
         // whatever we were waiting for from the server should be available now
-        startPostponedEnterTransition();
+//        startPostponedEnterTransition();
     }
 
     private Bitmap getReducedBitmap(int albumArtResId) {
