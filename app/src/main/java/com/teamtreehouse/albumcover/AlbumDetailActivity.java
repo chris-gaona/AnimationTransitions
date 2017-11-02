@@ -5,6 +5,7 @@ import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.graphics.Palette;
 import android.transition.ChangeBounds;
 import android.transition.Fade;
@@ -223,6 +224,10 @@ public class AlbumDetailActivity extends Activity {
         mTransitionManager.setTransition(mCollapsedScene, mExpandedScene, expandTransitionSet);
         // calls enter for first scene
         mCollapsedScene.enter();
+
+        // sets postpone on all transitions until called later
+        // used to handle potential network latency problems
+        postponeEnterTransition();
     }
 
     private void populate() {
@@ -232,6 +237,10 @@ public class AlbumDetailActivity extends Activity {
         // get reduced size of the artwork
         Bitmap albumBitmap = getReducedBitmap(albumArtResId);
         colorizeFromImage(albumBitmap);
+
+        // starts transitions here on command
+        // whatever we were waiting for from the server should be available now
+        startPostponedEnterTransition();
     }
 
     private Bitmap getReducedBitmap(int albumArtResId) {
